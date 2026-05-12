@@ -1,0 +1,187 @@
+{
+  "name": "hic-in-vscode",
+  "displayName": "HIC in VS Code",
+  "description": "Local-first VS Code viewer for opening and inspecting .hic Hi-C contact maps.",
+  "version": "0.1.0",
+  "publisher": "hic-in-vscode",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hic-in-vscode/hic-in-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Data Science",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "hic",
+    "hi-c",
+    "juicebox",
+    "genomics",
+    "contact map"
+  ],
+  "activationEvents": [
+    "onCustomEditor:hicInVscode.hicEditor",
+    "onCommand:hicInVscode.openHicViewer",
+    "onCommand:hicInVscode.copyCurrentLocus",
+    "onCommand:hicInVscode.copyViewerState",
+    "onCommand:hicInVscode.reloadHicFile",
+    "onCommand:hicInVscode.openExternalJuiceboxDesktop"
+  ],
+  "main": "./dist/src/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "hicInVscode.hicEditor",
+        "displayName": "HIC Contact Map",
+        "selector": [
+          {
+            "filenamePattern": "*.hic"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "hicInVscode.openHicViewer",
+        "title": "HIC: Open HIC Viewer"
+      },
+      {
+        "command": "hicInVscode.copyCurrentLocus",
+        "title": "HIC: Copy Current Locus",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "hicInVscode.copyViewerState",
+        "title": "HIC: Copy Viewer State",
+        "icon": "$(json)"
+      },
+      {
+        "command": "hicInVscode.reloadHicFile",
+        "title": "HIC: Reload HIC File",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "hicInVscode.openExternalJuiceboxDesktop",
+        "title": "HIC: Open in External Juicebox Desktop",
+        "icon": "$(link-external)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "hicInVscode.openHicViewer",
+          "when": "resourceExtname == .hic",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "hicInVscode.copyCurrentLocus",
+          "when": "resourceExtname == .hic",
+          "group": "navigation@1"
+        },
+        {
+          "command": "hicInVscode.reloadHicFile",
+          "when": "resourceExtname == .hic",
+          "group": "navigation@2"
+        },
+        {
+          "command": "hicInVscode.openExternalJuiceboxDesktop",
+          "when": "resourceExtname == .hic",
+          "group": "navigation@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "hicInVscode.openHicViewer"
+        },
+        {
+          "command": "hicInVscode.copyCurrentLocus"
+        },
+        {
+          "command": "hicInVscode.copyViewerState"
+        },
+        {
+          "command": "hicInVscode.reloadHicFile"
+        },
+        {
+          "command": "hicInVscode.openExternalJuiceboxDesktop"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "HIC in VS Code",
+      "properties": {
+        "hicInVscode.defaultNormalization": {
+          "type": "string",
+          "default": "NONE",
+          "markdownDescription": "Normalization requested when a `.hic` file is first opened. If unavailable, the viewer falls back to `NONE`."
+        },
+        "hicInVscode.defaultResolution": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null,
+          "markdownDescription": "Preferred starting bin size in base pairs. Leave null to let juicebox.js choose a safe overview."
+        },
+        "hicInVscode.enableLocalRangeServer": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Enable the token-protected localhost range server used to stream local `.hic` byte ranges into the webview."
+        },
+        "hicInVscode.enableExternalTracks": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Allow the webview to make explicit HTTPS requests for external tracks or lookups. Local `.hic` viewing does not require this."
+        },
+        "hicInVscode.maxCacheSizeMb": {
+          "type": "number",
+          "default": 256,
+          "minimum": 16,
+          "maximum": 4096,
+          "markdownDescription": "Target maximum in-memory cache budget for future range/block caching. The MVP does not load whole `.hic` files into memory."
+        },
+        "hicInVscode.externalJuiceboxJar": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Optional path to a Juicebox Desktop `.jar` for the external fallback command."
+        },
+        "hicInVscode.javaExecutable": {
+          "type": "string",
+          "default": "java",
+          "markdownDescription": "Java executable used with `hicInVscode.externalJuiceboxJar`."
+        },
+        "hicInVscode.debugLogging": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Enable extra extension-host logging. Full local file paths are only logged when this is enabled."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test dist/test/*.test.js",
+    "vscode:prepublish": "npm run compile",
+    "package": "npm run compile && vsce package"
+  },
+  "dependencies": {
+    "@vscode/codicons": "^0.0.45",
+    "font-awesome": "^4.7.0",
+    "juicebox.js": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.92.0",
+    "@vscode/vsce": "^3.9.1",
+    "typescript": "^5.6.3"
+  }
+}

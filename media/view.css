@@ -1,0 +1,232 @@
+:root {
+  color-scheme: light dark;
+  --bg: var(--vscode-editor-background, #1e1e1e);
+  --fg: var(--vscode-editor-foreground, #d4d4d4);
+  --muted: var(--vscode-descriptionForeground, #9da0a6);
+  --border: var(--vscode-panel-border, #3c3c3c);
+  --accent: var(--vscode-button-background, #0e639c);
+  --accent-fg: var(--vscode-button-foreground, #ffffff);
+  --surface: var(--vscode-sideBar-background, #252526);
+  --surface-soft: var(--vscode-editorWidget-background, #2d2d30);
+  --danger: var(--vscode-errorForeground, #f48771);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--vscode-font-family, Segoe UI, sans-serif);
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: 100%;
+  height: 100%;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.title-block {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-name {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-state {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--surface-soft);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  min-height: 0;
+}
+
+.viewer-pane {
+  min-width: 0;
+  min-height: 0;
+  padding: 8px;
+}
+
+.viewer-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.viewer {
+  width: 100%;
+  height: 100%;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(30, 30, 30, 0.04), rgba(30, 30, 30, 0.08));
+}
+
+.loading-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.loading-detail {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.metadata-pane {
+  min-width: 0;
+  min-height: 0;
+  padding: 8px 8px 8px 0;
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  overflow: auto;
+}
+
+.meta-group {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-soft);
+}
+
+.meta-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+.meta-value {
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.scrollbox {
+  max-height: 160px;
+  overflow: auto;
+}
+
+.mono {
+  font-family: var(--vscode-editor-font-family, Consolas, monospace);
+}
+
+.app-footer {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.status-text {
+  min-width: 0;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul.compact-list {
+  margin: 0;
+  padding-left: 16px;
+}
+
+ul.compact-list li {
+  margin: 0 0 2px;
+}
+
+@media (max-width: 980px) {
+  .app-main {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .metadata-pane {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding: 8px;
+  }
+}
+

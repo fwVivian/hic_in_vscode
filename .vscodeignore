@@ -1,0 +1,12 @@
+.git/**
+.vscode/**
+.gitignore
+src/**
+test/**
+dist/test/**
+dist/**/*.map
+*.ts
+tsconfig.json
+hic_in_vscode_product_plan.md
+npm-debug.log*
+*.vsix
