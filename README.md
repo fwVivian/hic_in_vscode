@@ -1,6 +1,16 @@
 # HIC in VS Code
 
-Local-first VS Code extension for opening `.hic` Hi-C contact maps without leaving the editor.
+## 项目简介 / Project Overview
+
+**中文**：HIC in VS Code 是一个本地优先的 VS Code 插件，用于在编辑器内直接打开和查看 `.hic` Hi-C contact map 文件。无需离开 VS Code，也不会上传本地 `.hic` 文件。
+
+**English**: HIC in VS Code is a local-first VS Code extension for opening and inspecting `.hic` Hi-C contact maps directly inside the editor. Local `.hic` files stay on your machine and are not uploaded.
+
+## 快速安装 / Quick Install
+
+**中文**：发布页提供打包好的 `.vsix` 文件。下载后可以直接拖进 VS Code 窗口或扩展面板安装，然后打开本地 `.hic` 文件即可使用。
+
+**English**: A packaged `.vsix` file is available on the release page. Download it, drag it into the VS Code window or Extensions view to install, then open a local `.hic` file to start using the viewer.
 
 ## Features
 
@@ -11,6 +21,10 @@ Local-first VS Code extension for opening `.hic` Hi-C contact maps without leavi
 - Provides reload, copy current locus, copy viewer state, and optional Juicebox Desktop fallback commands.
 
 ## Quick Start
+
+To install from a release, download the `.vsix` asset from the release page and drag it into VS Code.
+
+For development:
 
 1. Run `npm install`.
 2. Run `npm run compile`.
